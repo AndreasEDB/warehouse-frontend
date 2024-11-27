@@ -4,6 +4,11 @@ import ProductAttributeTable from "../../tables/ProductAttributeTable"
 import { SidebarContext } from "../../../contexts/SidebarContext"
 import SidebarContextType from "../../../interfaces/SidebarContextType"
 import ProductAttribute from "../../../interfaces/ProductAttribute"
+import ButtonArea from "../../buttons/ButtonArea"
+import ButtonTypes from "../../../interfaces/ButtonTypes"
+import axios from "axios"
+import { ProductContext } from "../../../contexts/ProductContext"
+const {VITE_BASE_URI} = import.meta.env
 
 const SidebarProduct = ({ product }: { product: Product | null }) => {
   const [id, setId] = useState<number>(0)
@@ -14,23 +19,40 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
   const [productAttributes, setProductAttributes] = useState<
     ProductAttribute[]
   >([])
-  const { setSidebarTitle } = useContext<SidebarContextType>(SidebarContext)
+  const { setSidebarTitle, closeSidebar } = useContext<SidebarContextType>(SidebarContext)
+  const {getProducts} = useContext(ProductContext)
 
-  const createProduct = async () => {}
-  const updateProduct = async () => {}
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (product) {
-      await updateProduct()
-    } else {
-      await createProduct()
+    const newProduct: Product = {
+      productNumber: productNumber,
+      name: name,
+      description: description,
+      stockQuantity: stockQuantity,
+      productAttributes: productAttributes,
+    }
+    if (product) newProduct.id = id
+
+    let res
+
+    if (product)
+      res = await axios.put(`${VITE_BASE_URI}product/${id}`, newProduct)
+    else
+      res = await axios.post(`${VITE_BASE_URI}product`, newProduct)
+
+    if (res.status >= 200 && res.status < 300) {
+      await getProducts()
+      closeSidebar()
+    }
+    else {
+      console.log(res)
     }
   }
 
   useEffect(() => {
     if (product) {
-      setId(product.id)
+      setId(product.id!)
       setProductNumber(product.productNumber)
       setName(product.name)
       setDescription(product.description)
@@ -98,6 +120,7 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
           </h3>
           <ProductAttributeTable productAttributes={productAttributes} />
         </div>
+        <ButtonArea buttons={[product ? ButtonTypes.Save() : ButtonTypes.Create(), ButtonTypes.Cancel(closeSidebar)]} />
       </form>
     </>
   )

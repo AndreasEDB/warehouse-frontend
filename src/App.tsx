@@ -1,14 +1,24 @@
-import MainLayout from "./components/layouts/MainLayout"
-import ProductTable from "./components/tables/ProductTable"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import MainLayout from "./components/layout/MainLayout"
+import Products from "./pages/Products"
+import ProductAttributes from "./pages/ProductAttributes"
 
 const App = () => {
   return (
-    <MainLayout>
-      <>
-        <h1>Products</h1>
-        <ProductTable />
-      </>
-    </MainLayout>
+    <Router>
+      <MainLayout>
+        <Routes>
+          <Route
+            path="/"
+            element={<Products />}
+          />
+          <Route
+            path="/productattributes"
+            element={<ProductAttributes />}
+          />
+        </Routes>
+      </MainLayout>
+    </Router>
   )
 }
 

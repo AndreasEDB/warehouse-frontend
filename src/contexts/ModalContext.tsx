@@ -7,14 +7,22 @@ export const ModalContext = createContext<ModalContextType>(
 
 const ModalContextProvider = ({ children }: { children: ReactNode }) => {
   const [modalComponent, setModalComponent] = useState<JSX.Element | null>(null)
+  const [modalTitle, setModalTitle] = useState<string | null>(null)
 
   const closeModal = () => {
     setModalComponent(null)
+    setModalTitle(null)
   }
 
   return (
     <ModalContext.Provider
-      value={{ modalComponent, setModalComponent, closeModal }}
+      value={{
+        modalComponent,
+        setModalComponent,
+        closeModal,
+        modalTitle,
+        setModalTitle,
+      }}
     >
       {children}
     </ModalContext.Provider>

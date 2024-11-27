@@ -16,7 +16,7 @@ const Sidebar = () => {
       />
       <aside
         className={[
-          "fixed top-0 bottom-0 w-96 bg-white shadow-2xl right-0 transition-transform duration-300",
+          "fixed top-0 bottom-0 w-96 bg-white shadow-2xl right-0 transition-transform duration-300 h-full",
           sidebarComponent ? "translate-x-0" : "translate-x-full",
         ].join(" ")}
       >
@@ -26,7 +26,7 @@ const Sidebar = () => {
           </h2>
           <CloseButton onClick={closeSidebar} />
         </header>
-        <main className="p-3">{sidebarComponent}</main>
+        <main className="p-3 h-full overflow-scroll">{sidebarComponent}</main>
       </aside>
     </>
   )

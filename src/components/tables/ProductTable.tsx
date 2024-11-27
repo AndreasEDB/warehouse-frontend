@@ -6,22 +6,13 @@ import Product from "../../interfaces/Product"
 import SidebarContextType from "../../interfaces/SidebarContextType"
 import { SidebarContext } from "../../contexts/SidebarContext"
 import SidebarProduct from "../sidebar/sidebarComponents/SidebarProduct"
+import DeleteProductButton from "../buttons/DeleteButton"
 
 const ProductTable = () => {
   const { products } = useContext<ProductContextType>(ProductContext)
   const { setSidebarComponent } = useContext<SidebarContextType>(SidebarContext)
 
-  // useEffect(() => {
-  //     products.length && setSidebarComponent(<SidebarProduct product={products[0]} />)
-  // }, [products])
-
   const columns: TableColumn<Product>[] = [
-    {
-      name: "ID",
-      selector: (row: Product) => row.id,
-      sortable: true,
-      width: "4rem",
-    },
     {
       name: "Product Number",
       selector: (row: Product) => row.productNumber,
@@ -42,21 +33,13 @@ const ProductTable = () => {
       name: "Stock Quantity",
       selector: (row: Product) => row.stockQuantity,
       sortable: true,
+      right: true,
     },
-    // {
-    //   name: "Product Attributes",
-    //   cell: (row: Product) => (
-    //     <span
-    //       title={row.productAttributes
-    //         .map(({ key, value }) => `${key}: ${value}`)
-    //         .join("\n")}
-    //     >
-    //       {row.productAttributes.map(pa => pa.key).join(", ")}
-    //     </span>
-    //   ),
-    //   sortable: true,
-    // },
+    {
+      cell: (row: Product) => <DeleteProductButton product={row} />,
+    },
   ]
+
   return (
     <DataTable
       columns={columns}
