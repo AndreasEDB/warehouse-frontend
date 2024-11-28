@@ -1,4 +1,4 @@
-import { IconBaseProps, IconType } from "react-icons"
+import { IconBaseProps } from "react-icons"
 
 export default interface ButtonProps {
   text?: string

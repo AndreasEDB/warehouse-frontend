@@ -2,9 +2,17 @@ import { useContext } from "react"
 import Product from "../../../interfaces/Product"
 import ButtonArea from "../../buttons/ButtonArea"
 import { ModalContext } from "../../../contexts/ModalContext"
+import { ProductContext } from "../../../contexts/ProductContext"
 
 const DeleteProduct = ({ product }: { product: Product }) => {
   const { closeModal } = useContext(ModalContext)
+  const { deleteProduct } = useContext(ProductContext)
+
+  const handleDelete = async () => {
+    await deleteProduct(product.id!)
+    closeModal()
+  }
+
   return (
     <div className="text-center">
       <h2 className="text-xl">Do you wish to delete {product.name}?</h2>
@@ -19,7 +27,7 @@ const DeleteProduct = ({ product }: { product: Product }) => {
           {
             text: "Delete",
             className: "bg-red-500 text-white",
-            onClick: () => console.log("Delete product"),
+            onClick: handleDelete,
             type: "button",
           },
           {

@@ -1,6 +1,6 @@
 import { MdDelete } from "react-icons/md"
 import BaseButton from "./BaseButton"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { ModalContext } from "../../contexts/ModalContext"
 import DeleteProduct from "../modal/modalComponents/DeleteProduct"
 import Product from "../../interfaces/Product"
@@ -8,6 +8,11 @@ import { IconBaseProps } from "react-icons"
 
 const DeleteProductButton = ({ product }: { product: Product }) => {
   const { setModalComponent, setModalTitle } = useContext(ModalContext)
+
+  useEffect(() => {
+    setModalTitle("Delete Product")
+  }, [])
+
   return (
     <BaseButton
       icon={(props?: IconBaseProps) => <MdDelete {...props} />}

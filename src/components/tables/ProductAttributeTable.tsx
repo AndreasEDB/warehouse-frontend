@@ -49,7 +49,7 @@ const ProductAttributeTable = ({
 
   return (
     <>
-      <h3 className="block text-gray-700 text-center mt-7 mb-5 flex justify-between">
+      <h3 className="text-gray-700 text-center mt-7 mb-5 flex justify-between">
         <span>Product Attributes</span>
         <BaseButton
           className="bg-blue-500 text-white"

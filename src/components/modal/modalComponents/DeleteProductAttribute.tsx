@@ -1,6 +1,5 @@
 import { useContext } from "react"
 import { ModalContext } from "../../../contexts/ModalContext"
-import ProductAttribute from "../../../interfaces/ProductAttribute"
 import ButtonArea from "../../buttons/ButtonArea"
 import UpdateCreateAttributeProps from "../../../interfaces/UpdateCreateAttributeProps"
 

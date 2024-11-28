@@ -6,9 +6,7 @@ import SidebarContextType from "../../../interfaces/SidebarContextType"
 import ProductAttribute from "../../../interfaces/ProductAttribute"
 import ButtonArea from "../../buttons/ButtonArea"
 import ButtonTypes from "../../../interfaces/ButtonTypes"
-import axios from "axios"
 import { ProductContext } from "../../../contexts/ProductContext"
-const { VITE_BASE_URI } = import.meta.env
 
 const SidebarProduct = ({ product }: { product: Product | null }) => {
   const [id, setId] = useState<number>(0)
@@ -21,7 +19,8 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
   >([])
   const { setSidebarTitle, closeSidebar } =
     useContext<SidebarContextType>(SidebarContext)
-  const { getProducts } = useContext(ProductContext)
+  const { getProducts, createProduct, updateProduct } =
+    useContext(ProductContext)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,11 +35,10 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
 
     let res
 
-    if (product)
-      res = await axios.put(`${VITE_BASE_URI}product/${id}`, newProduct)
-    else res = await axios.post(`${VITE_BASE_URI}product`, newProduct)
+    if (product) res = await updateProduct(newProduct)
+    else res = await createProduct(newProduct)
 
-    if (res.status >= 200 && res.status < 300) {
+    if (res) {
       await getProducts()
       closeSidebar()
     } else {

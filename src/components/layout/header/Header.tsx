@@ -8,7 +8,7 @@ const Header = ({ height }: { height: number }) => {
     >
       <Logo />
       <div></div>
-      <Nav />
+      {/* <Nav /> */}
     </header>
   )
 }
