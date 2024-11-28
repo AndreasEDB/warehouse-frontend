@@ -16,7 +16,7 @@ const Modal = () => {
       />
       <div
         className={[
-          "absolute left-1/2  -translate-x-1/2 -translate-y-1/2  w-96 max-w-full h-72 max-h-full bg-white shadow-2xl",
+          "absolute left-1/2  -translate-x-1/2 -translate-y-1/2  w-96 max-w-full max-h-full bg-white shadow-2xl transition-all duration-300",
           modalComponent ? "top-1/2 " : "-top-full",
         ].join(" ")}
       >
@@ -26,7 +26,7 @@ const Modal = () => {
           </h2>
           <CloseButton onClick={closeModal} />
         </header>
-        <main className="p-3 h-full">{modalComponent}</main>
+        <main className="p-3">{modalComponent}</main>
       </div>
     </>
   )

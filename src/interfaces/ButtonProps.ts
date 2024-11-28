@@ -1,9 +1,10 @@
-import { IconType } from "react-icons"
+import { IconBaseProps, IconType } from "react-icons"
 
 export default interface ButtonProps {
   text?: string
-  icon?: JSX.Element
+  icon?: (props?: IconBaseProps) => JSX.Element
   onClick: () => void
   type: "button" | "submit" | "reset"
   className?: string
+  square?: boolean
 }

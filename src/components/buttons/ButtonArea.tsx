@@ -1,17 +1,18 @@
 import Button from "../../interfaces/Button"
+import BaseButton from "./BaseButton"
 
 const ButtonArea = ({ buttons }: { buttons: Button[] }) => {
   return (
-    <section className="w-full flex justify-stretch gap-2 pt-5 pb-10">
+    <section className="w-full flex justify-stretch gap-2 pt-5">
       {buttons.map((button, index) => (
-        <button
+        <BaseButton
           key={index}
-          className={button.className + " flex-1"}
+          text={button.text}
+          icon={button.icon}
           onClick={button.onClick}
           type={button.type}
-        >
-          {button.text}
-        </button>
+          className={button.className + " flex-1"}
+        />
       ))}
     </section>
   )

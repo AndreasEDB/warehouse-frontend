@@ -8,7 +8,7 @@ import ButtonArea from "../../buttons/ButtonArea"
 import ButtonTypes from "../../../interfaces/ButtonTypes"
 import axios from "axios"
 import { ProductContext } from "../../../contexts/ProductContext"
-const {VITE_BASE_URI} = import.meta.env
+const { VITE_BASE_URI } = import.meta.env
 
 const SidebarProduct = ({ product }: { product: Product | null }) => {
   const [id, setId] = useState<number>(0)
@@ -19,9 +19,9 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
   const [productAttributes, setProductAttributes] = useState<
     ProductAttribute[]
   >([])
-  const { setSidebarTitle, closeSidebar } = useContext<SidebarContextType>(SidebarContext)
-  const {getProducts} = useContext(ProductContext)
-
+  const { setSidebarTitle, closeSidebar } =
+    useContext<SidebarContextType>(SidebarContext)
+  const { getProducts } = useContext(ProductContext)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,14 +38,12 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
 
     if (product)
       res = await axios.put(`${VITE_BASE_URI}product/${id}`, newProduct)
-    else
-      res = await axios.post(`${VITE_BASE_URI}product`, newProduct)
+    else res = await axios.post(`${VITE_BASE_URI}product`, newProduct)
 
     if (res.status >= 200 && res.status < 300) {
       await getProducts()
       closeSidebar()
-    }
-    else {
+    } else {
       console.log(res)
     }
   }
@@ -78,7 +76,7 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
             type="text"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={productNumber}
-            onChange={e => setProductNumber(e.target.value)}
+            onChange={(e) => setProductNumber(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -89,7 +87,7 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
             type="text"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -100,7 +98,7 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
             rows={5}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -111,16 +109,21 @@ const SidebarProduct = ({ product }: { product: Product | null }) => {
             type="number"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={stockQuantity}
-            onChange={e => setStockQuantity(parseInt(e.target.value))}
+            onChange={(e) => setStockQuantity(parseInt(e.target.value))}
           />
         </div>
         <div className="form-group">
-          <h3 className="block text-gray-700 text-center mt-7 mb-5">
-            Product Attributes
-          </h3>
-          <ProductAttributeTable productAttributes={productAttributes} />
+          <ProductAttributeTable
+            attributes={productAttributes}
+            setAttributes={setProductAttributes}
+          />
         </div>
-        <ButtonArea buttons={[product ? ButtonTypes.Save() : ButtonTypes.Create(), ButtonTypes.Cancel(closeSidebar)]} />
+        <ButtonArea
+          buttons={[
+            product ? ButtonTypes.Save() : ButtonTypes.Create(),
+            ButtonTypes.Cancel(closeSidebar),
+          ]}
+        />
       </form>
     </>
   )

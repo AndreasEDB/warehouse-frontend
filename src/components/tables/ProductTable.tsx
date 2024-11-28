@@ -37,6 +37,7 @@ const ProductTable = () => {
     },
     {
       cell: (row: Product) => <DeleteProductButton product={row} />,
+      right: true,
     },
   ]
 
@@ -44,6 +45,7 @@ const ProductTable = () => {
     <DataTable
       columns={columns}
       data={products}
+      pointerOnHover
       pagination
       responsive
       highlightOnHover
