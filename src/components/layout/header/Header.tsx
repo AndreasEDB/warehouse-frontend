@@ -1,5 +1,5 @@
 import Logo from "./Logo"
-import Nav from "./Nav"
+// import Nav from "./Nav"
 
 const Header = ({ height }: { height: number }) => {
   return (
